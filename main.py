@@ -1,5 +1,5 @@
 
-# python -m gymnasium.envs.box2d.car_racing
+# Play: python -m gymnasium.envs.box2d.car_racing
 
 import gymnasium as gym
 
