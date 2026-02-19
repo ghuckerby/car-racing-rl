@@ -2,3 +2,5 @@ __pycache__/
 .venv/
 .env/
 *.pyc
+DQN_logs/
+PPO_logs/
