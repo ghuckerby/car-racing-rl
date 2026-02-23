@@ -1,56 +1,72 @@
 import gymnasium as gym
-from gymnasium.wrappers import FrameStackObservation, GrayscaleObservation, ResizeObservation
 from stable_baselines3 import PPO, DQN
-from stable_baselines3.common.atari_wrappers import MaxAndSkipEnv
-import numpy as np
+from stable_baselines3.common.env_util import make_vec_env
+from stable_baselines3.common.vec_env import VecFrameStack, VecVideoRecorder, VecTransposeImage
+from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.atari_wrappers import WarpFrame
+import os
 
 from train_dqn import train_dqn_agent
 from train_ppo import train_ppo_agent
 
 # Play: python -m gymnasium.envs.box2d.car_racing
 
-def evaluate_agent(algo_name, model_path, n_episodes=5):
-    print(f"\nEvaluating {algo_name} agent from {model_path}")
+def evaluate_agent(algo_name, log_dir, n_eval_episodes=20, record_video=True):
+    """Evaluate a trained agent and optionally record a video."""
+    print(f"\nEvaluating {algo_name} agent from {log_dir}")
 
+    # Create evaluation environment
+    env_kwargs_dict = {"continuous": False} if algo_name == "DQN" else {}
+    env = make_vec_env(
+        "CarRacing-v3",
+        n_envs=1,
+        env_kwargs=env_kwargs_dict,
+        wrapper_class=WarpFrame
+    )
+    env = VecFrameStack(env, n_stack=4)
+    env = VecTransposeImage(env)
+
+    # Load model
+    best_model_path = os.path.join(log_dir, "best_model.zip")
     if algo_name == "PPO":
-        model = PPO.load(model_path)
+        model = PPO.load(best_model_path, env=env)
     elif algo_name == "DQN":
-        model = DQN.load(model_path)
+        model = DQN.load(best_model_path, env=env)
     else:
         raise ValueError("Unsupported algorithm. Use 'PPO' or 'DQN'.")
-    
-    def make_eval_env():
-        is_continuous = (algo_name == "PPO")
-        env = gym.make("CarRacing-v3", render_mode="human", continuous=is_continuous, max_episode_steps=2000)
-        env = MaxAndSkipEnv(env, skip=4)
-        env = GrayscaleObservation(env)
-        env = ResizeObservation(env, shape=(84, 84))
-        env = FrameStackObservation(env, stack_size=4)
-        return env
-    
-    env = make_eval_env()
 
-    episode_rewards = []
-    for episode in range(n_episodes):
-        obs, info = env.reset()
-        done = False
-        episode_reward = 0
+    # Evaluate policy
+    mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=n_eval_episodes)
+    print(f"{algo_name} evaluation completed. Mean reward: {mean_reward:.2f} +/- {std_reward:.2f}")
 
-        while not done:
+    # Video Recording
+    if record_video:
+        print(f"Recording video of best {algo_name} model.")
+        env_video = VecVideoRecorder(
+            env,
+            log_dir,
+            video_length=3_000,
+            record_video_trigger=lambda x: x == 0,
+            name_prefix=f"{algo_name.lower()}_best_model"
+        )
+        obs = env_video.reset()
+        for _ in range(3_000):
             action, states = model.predict(obs, deterministic=True)
-            obs, reward, terminated, truncated, info = env.step(action)
-            episode_reward += reward
+            obs, reward, terminated, truncated, info = env_video.step(action)
             done = terminated or truncated
+            if done:
+                break
+        env_video.close()
 
-        episode_rewards.append(episode_reward)
-        print(f"Episode {episode + 1}: Reward = {episode_reward:.2f}")
+    env.close()
+    return mean_reward, std_reward
 
-    print(f"{algo_name} Evaluation completed.")
-    print(f"Average Reward over {n_episodes} episodes: {np.mean(episode_rewards):.2f}")
 
 if __name__ == "__main__":
-    # train_dqn_agent(total_timesteps=1_000_000)
-    # train_ppo_agent(total_timesteps=1_000_000, n_envs=1)
-    
-    # evaluate_agent("DQN", "car_racing_dqn.zip", n_episodes=10)
-    evaluate_agent("PPO", "car_racing_ppo.zip", n_episodes=1)
+    # Train agents
+    train_dqn_agent(total_timesteps=1_000_000)
+    train_ppo_agent(total_timesteps=1_000_000)
+
+    # Evaluate agents
+    evaluate_agent("DQN", "dqn_logs/")
+    evaluate_agent("PPO", "ppo_logs/")
