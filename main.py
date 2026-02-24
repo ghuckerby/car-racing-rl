@@ -12,7 +12,6 @@ from train_ppo import train_ppo_agent
 # Play: python -m gymnasium.envs.box2d.car_racing
 
 def evaluate_agent(algo_name, log_dir, n_eval_episodes=20, record_video=True):
-    """Evaluate a trained agent and optionally record a video."""
     print(f"\nEvaluating {algo_name} agent from {log_dir}")
 
     # Create evaluation environment
@@ -27,7 +26,7 @@ def evaluate_agent(algo_name, log_dir, n_eval_episodes=20, record_video=True):
     env = VecTransposeImage(env)
 
     # Load model
-    best_model_path = os.path.join(log_dir, "best_model.zip")
+    best_model_path = os.path.join(log_dir, "best_model")
     if algo_name == "PPO":
         model = PPO.load(best_model_path, env=env)
     elif algo_name == "DQN":
@@ -45,15 +44,14 @@ def evaluate_agent(algo_name, log_dir, n_eval_episodes=20, record_video=True):
         env_video = VecVideoRecorder(
             env,
             log_dir,
-            video_length=3_000,
+            video_length=5_000,
             record_video_trigger=lambda x: x == 0,
             name_prefix=f"{algo_name.lower()}_best_model"
         )
         obs = env_video.reset()
-        for _ in range(3_000):
+        for _ in range(5_000):
             action, states = model.predict(obs, deterministic=True)
-            obs, reward, terminated, truncated, info = env_video.step(action)
-            done = terminated or truncated
+            obs, reward, done, info = env_video.step(action)
             if done:
                 break
         env_video.close()
@@ -64,8 +62,8 @@ def evaluate_agent(algo_name, log_dir, n_eval_episodes=20, record_video=True):
 
 if __name__ == "__main__":
     # Train agents
-    train_dqn_agent(total_timesteps=1_000_000)
-    train_ppo_agent(total_timesteps=1_000_000)
+    # train_dqn_agent(total_timesteps=1_000_000)
+    # train_ppo_agent(total_timesteps=1_000_000)
 
     # Evaluate agents
     evaluate_agent("DQN", "dqn_logs/")
