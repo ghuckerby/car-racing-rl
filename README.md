@@ -21,7 +21,14 @@ Project for Designing Intelligent Agents Coursework
 
 - How does an agent train on one/standard tracks generalise to others?
 - Train on standard tracks then evaluate on modified environment versions.
-- (Investigate track randomisation and custom creation)
+
+- Investigate track randomisation and custom creation:
+- domain_randomize=True: enables track randomisation
+- lap_complete_percent parameter
+- Modify the Box2D physics to 'icy' or 'slick' tracks
+- Create manual tracks
+- Add obstacles on the track
+- Maybe add multiple agents
 
 3. Perception and Frame Stacking
 
