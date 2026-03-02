@@ -66,5 +66,5 @@ if __name__ == "__main__":
     # train_ppo_agent(total_timesteps=1_000_000)
 
     # Evaluate agents
-    evaluate_agent("DQN", "dqn_logs/")
+    # evaluate_agent("DQN", "dqn_logs/")
     evaluate_agent("PPO", "ppo_logs/")
