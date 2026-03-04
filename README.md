@@ -12,32 +12,12 @@ Project for Designing Intelligent Agents Coursework
 
 ## Research Question Ideas:
 
-1. Comparison of Action Spaces (Continuous vs Discrete) on driving style.
+1. Reward Shaping and Driving Style Analysis:
 
-- Train an agent with the same algorithm using different action spaces
-- Compare trajectories, average rewards, lap completion, and qualitative findings.
+How do different reward function designs influence the driving policy, and can reward shaping produce distincts driving 'styles'?
 
-2. Generalisation and Transfer Learning
-
-- How does an agent train on one/standard tracks generalise to others?
-- Train on standard tracks then evaluate on modified environment versions.
-
-- Investigate track randomisation and custom creation:
-- domain_randomize=True: enables track randomisation
-- lap_complete_percent parameter
-- Modify the Box2D physics to 'icy' or 'slick' tracks
-- Create manual tracks
-- Add obstacles on the track
-- Maybe add multiple agents
-
-3. Perception and Frame Stacking
-
-- How does the amount of visual information impact the agent's ability to handle high-speed cornering
-- Train agent with different stacking depths and measure performance on sharp turns vs straight sections.
-
-4. Reward Shaping Effect
-
-- Default reward in Car Racing is tiles visited
-- How do different reward components influence the learned driving policy?
-- Create custom environment wrappers that modify the reward function
-- Train seperate agents on these 'styles' and use visualisations to compare driving lines and lap times
+- Custom wrapper subclasses that replace the default reward (Speed, efficiency, safety, time pressure)
+- Trajectory analysis
+- Quantitative metrics: average speed, steering variance, off-track %, lap completion rate, total reward
+- Visualisations: overlay driving lines on the track, speed heatmaps, radar/spider charts comparing styles
+- Statistical testing across 20+ evaluation episodes per agent
