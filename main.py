@@ -28,9 +28,9 @@ def main():
             results[run_name] = {"mean_reward": mean, "std_reward": std}
 
     # Print summary of results
-    print("\nEXPERIMENT RESULTS SUMMARY:")
+    print("\nEXPERIMENT RESULTS SUMMARY:\n")
     for run_name, metrics in results.items():
-        print(f"{run_name}: Mean Reward = {metrics['mean_reward']:.2f}, Std = {metrics['std_reward']:.2f}")
+        print(f"-- {run_name} -- | Mean Reward = {metrics['mean_reward']:.2f}, Std = {metrics['std_reward']:.2f}")
 
 if __name__ == "__main__":
     main()
