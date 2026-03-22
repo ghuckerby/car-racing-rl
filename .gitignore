@@ -3,5 +3,5 @@ __pycache__/
 .env/
 *.pyc
 
-PPO_logs/checkpoints/
-PPO_logs/tensorboard/
+logs/checkpoints/
+logs/tensorboard/
