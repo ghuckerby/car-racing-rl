@@ -6,7 +6,7 @@ from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.atari_wrappers import WarpFrame
 import os
 
-from train_ppo import train_ppo_agent
+from agents.train_ppo import train_ppo_agent
 
 # Play: python -m gymnasium.envs.box2d.car_racing
 
@@ -52,4 +52,4 @@ if __name__ == "__main__":
     train_ppo_agent(total_timesteps=2_000_000)
 
     # Evaluate agent
-    evaluate_agent("PPO", "ppo_logs/")
+    evaluate_agent("PPO", "logs/")

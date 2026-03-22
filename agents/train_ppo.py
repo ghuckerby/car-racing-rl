@@ -8,7 +8,7 @@ import os
     
 def train_ppo_agent(total_timesteps=1_000_000):
 
-    log_dir = "ppo_logs/"
+    log_dir = "logs/"
 
     # Training Environment
     env = make_vec_env(
