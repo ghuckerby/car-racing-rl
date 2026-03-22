@@ -1,9 +1,9 @@
 from envs.reward_wrappers import (
-    ProgressRewardWrapper,
     SpeedRewardWrapper,
     SafetyRewardWrapper,
     SmoothnessRewardWrapper,
-    TimeRewardWrapper
+    TimeRewardWrapper,
+    DriftRewardWrapper
 )
 
 # Definitions for each experiment
@@ -11,12 +11,6 @@ EXPERIMENTS = [
     {
         "name": "baseline",
         "reward_wrapper": None,
-        "seeds": [0],
-        "total_timesteps": 2_000_000
-    },
-    {
-        "name": "progress_reward",
-        "reward_wrapper": ProgressRewardWrapper,
         "seeds": [0],
         "total_timesteps": 2_000_000
     },
@@ -41,6 +35,12 @@ EXPERIMENTS = [
     {
         "name": "time_reward",
         "reward_wrapper": TimeRewardWrapper,
+        "seeds": [0],
+        "total_timesteps": 2_000_000
+    },
+    {
+        "name": "drift_reward",
+        "reward_wrapper": DriftRewardWrapper,
         "seeds": [0],
         "total_timesteps": 2_000_000
     }
