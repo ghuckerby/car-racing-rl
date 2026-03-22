@@ -1,2 +1,0 @@
-
-# Definitions for each experiment
