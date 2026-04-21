@@ -12,6 +12,8 @@ def evaluate_agent(experiment_name, reward_wrapper = None, n_eval_episodes=10, r
 
     best_model_path = os.path.join(log_dir, "best_model.zip")
     final_model_path = os.path.join(log_dir, "final_model.zip")
+
+    # Use best model if it exists otherwise use final model
     if os.path.exists(best_model_path):
         model_path = best_model_path
     elif os.path.exists(final_model_path):
@@ -27,13 +29,16 @@ def evaluate_agent(experiment_name, reward_wrapper = None, n_eval_episodes=10, r
 
     # Record Video
     if record_video:
+
         env_video = VecVideoRecorder(
             env, log_dir, 
             video_length=5_000,
             record_video_trigger=lambda x: x == 0,
             name_prefix=f"{experiment_name}_best"
         )
+
         obs = env_video.reset()
+
         for _ in range(5_000):
             action, _ = model.predict(obs, deterministic=True)
             obs, _, done, _ = env_video.step(action)
