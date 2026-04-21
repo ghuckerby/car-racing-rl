@@ -5,7 +5,7 @@ from stable_baselines3.common.vec_env import VecVideoRecorder
 
 from agents.train_ppo import make_env
 
-def evaluate_agent(experiment_name, reward_wrapper = None, n_eval_episodes=10, record_video=True):
+def evaluate_agent(experiment_name, reward_wrapper=None, n_eval_episodes=10, record_video=True):
 
     # Create env and load model
     log_dir = os.path.join("results", experiment_name)
@@ -21,11 +21,15 @@ def evaluate_agent(experiment_name, reward_wrapper = None, n_eval_episodes=10, r
     else:
         raise FileNotFoundError(f"No model found for {experiment_name} in {log_dir}")
 
-    env = make_env(reward_wrapper)
+    env, tel = make_env(reward_wrapper, telemetry=True)
     model = PPO.load(model_path, env=env)
     
     # Reward statistics
     mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=n_eval_episodes)
+
+    # Save telemetry collected during episodes
+    if tel is not None:
+        tel.save(os.path.join(log_dir, "telemetry.json"))
 
     # Record Video
     if record_video:
