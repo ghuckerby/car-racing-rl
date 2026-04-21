@@ -1,7 +1,6 @@
 import numpy as np
 import gymnasium as gym
 
-
 # Speed:
 # - Does rewarding speed produce faster but less controlled driving?
 class SpeedRewardWrapper(gym.Wrapper):
@@ -20,7 +19,6 @@ class SpeedRewardWrapper(gym.Wrapper):
             reward += self.speed_weight * speed
 
         return obs, reward, terminated, truncated, info
-
 
 # Safety:
 # - Does penalising off-track behaviour produce more conservative driving?
@@ -41,7 +39,6 @@ class SafetyRewardWrapper(gym.Wrapper):
                 reward += self.off_track_penalty
 
         return obs, reward, terminated, truncated, info
-
 
 # Smoothness:
 # - Does rewarding smooth steering produce more stable driving?
@@ -67,7 +64,6 @@ class SmoothnessRewardWrapper(gym.Wrapper):
     def reset(self, **kwargs):
         self.prev_action = None
         return self.env.reset(**kwargs)
-
 
 # Time:
 # - Does a time penalty produce urgency, and does urgency help or hinder performance?

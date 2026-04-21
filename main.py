@@ -20,17 +20,38 @@ def main():
             )
 
             # Evaluate the agent
-            mean, std = evaluate_agent(
+            mean, std, telemetry = evaluate_agent(
                 experiment_name=run_name,
                 reward_wrapper=experiment["reward_wrapper"]
             )
 
-            results[run_name] = {"mean_reward": mean, "std_reward": std}
+            results[run_name] = {"mean_reward": mean, "std_reward": std, "telemetry": telemetry}
 
     # Print summary of results
     print("\nEXPERIMENT RESULTS SUMMARY:\n")
+    print(f"{'Experiment':<30} "
+          f"{'Mean Reward':>12} "
+          f"{'Std':>8} "
+          f"{'Mean Speed':>12} "
+          f"{'Max Speed':>12} "
+          f"{'Mean Lat Vel':>15} "
+          f"{'Off Track %':>12} "
+          f"{'Mean Steering Chg':>20} "
+          f"{'Mean Throttle':>15} "
+          f"{'Mean Brake':>12}")
+
     for run_name, metrics in results.items():
-        print(f"-- {run_name} -- | Mean Reward = {metrics['mean_reward']:.2f}, Std = {metrics['std_reward']:.2f}")
+        telemetry = metrics['telemetry']
+        print(f"{run_name:<30} "
+              f"{metrics['mean_reward']:>12.2f} "
+              f"{metrics['std_reward']:>8.2f} "
+              f"{telemetry['mean_speed']:>12.2f} "
+              f"{telemetry['max_speed']:>12.2f} "
+              f"{telemetry['mean_lateral_velocity']:>15.2f} "
+              f"{telemetry['off_track_percentage']:>12.2f} "
+              f"{telemetry['mean_steering_change']:>20.2f} "
+              f"{telemetry['mean_throttle']:>15.2f} "
+              f"{telemetry['mean_brake']:>12.2f}")
 
 if __name__ == "__main__":
     main()

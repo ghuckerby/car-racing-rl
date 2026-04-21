@@ -68,9 +68,7 @@ class TelemetryCollector(gym.Wrapper):
                 "mean_speed": float(np.mean(self.step_speeds)),
                 "max_speed": float(np.max(self.step_speeds)),
                 "mean_lateral_velocity": float(np.mean(self.step_lateral_velocitys)),
-                "off_track_steps": int(np.sum(self.step_off_track)),
                 "off_track_percentage": float(np.mean(self.step_off_track)),
-                "total_steering_change": float(np.sum(self.step_action_deltas)),
                 "mean_steering_change": float(np.mean(self.step_action_deltas)),
                 "mean_throttle": float(np.mean(self.step_throttle)),
                 "mean_brake": float(np.mean(self.step_brake))

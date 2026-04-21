@@ -1,4 +1,6 @@
 import os
+import json
+import numpy as np
 from stable_baselines3 import PPO
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.vec_env import VecVideoRecorder
@@ -31,6 +33,14 @@ def evaluate_agent(experiment_name, reward_wrapper=None, n_eval_episodes=10, rec
     if tel is not None:
         tel.save(os.path.join(log_dir, "telemetry.json"))
 
+    episodes = tel.episode_logs
+    summary = {}
+    if episodes:
+        data = ["mean_speed", "max_speed", "mean_lateral_velocity",
+                "off_track_percentage", "mean_steering_change",
+                "mean_throttle", "mean_brake"]
+        summary = {value: float(np.mean([ep[value] for ep in episodes])) for value in data}
+
     # Record Video
     if record_video:
 
@@ -51,4 +61,4 @@ def evaluate_agent(experiment_name, reward_wrapper=None, n_eval_episodes=10, rec
         env_video.close()
         
     env.close()
-    return mean_reward, std_reward
+    return mean_reward, std_reward, summary
