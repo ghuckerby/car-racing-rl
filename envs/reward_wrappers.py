@@ -6,7 +6,7 @@ import gymnasium as gym
 class SpeedRewardWrapper(gym.Wrapper):
 
     # Speed weight for reward
-    def __init__(self, env, speed_weight=0.1):
+    def __init__(self, env, speed_weight=0.05):
         super().__init__(env)
         self.speed_weight = speed_weight
 
@@ -45,7 +45,7 @@ class SafetyRewardWrapper(gym.Wrapper):
 class SmoothnessRewardWrapper(gym.Wrapper):
 
     # Smoothness penalty for large changes in steering
-    def __init__(self, env, smooth_weight=0.1):
+    def __init__(self, env, smooth_weight=1.0):
         super().__init__(env)
         self.smooth_weight = smooth_weight
         self.prev_action = None
@@ -70,7 +70,7 @@ class SmoothnessRewardWrapper(gym.Wrapper):
 class TimeRewardWrapper(gym.Wrapper):
 
     # Time penalty for each step to encourage faster completion
-    def __init__(self, env, time_penalty=0.01):
+    def __init__(self, env, time_penalty=0.1):
         super().__init__(env)
         self.time_penalty = time_penalty
 

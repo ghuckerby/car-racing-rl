@@ -1,23 +1,58 @@
+import argparse
+import os
 from experiments.configs import EXPERIMENTS
 from agents.train_ppo import train_ppo_agent
 from evaluation.evaluate import evaluate_agent
 
 def main():
 
+    parser = argparse.ArgumentParser(description="Train and evaluate CarRacing-v3 reward wrappers")
+    parser.add_argument("--experiment", type=str, default=None, help="Name of experiment to run. Runs all if not specified.")
+    parser.add_argument("--seed", type=int, default=None, help="Seed to run for the experiment.")
+    parser.add_argument("--list", action="store_true", help="List all available experiments.")
+    parser.add_argument("--eval-only", action="store_true",
+                        help="Skip training and only evaluate already-trained models.")
+    args = parser.parse_args()
+
+    if args.list:
+        for exp in EXPERIMENTS:
+            print(f"{exp['name']} (seeds :{exp['seeds']})")
+        return
+
     results = {}
 
+    # Iterate through each experiment configuration (Reward Wrapper)
     for experiment in EXPERIMENTS:
-        for seed in experiment["seeds"]:
-            run_name = f"{experiment['name']}_seed{seed}"
-            print(f"\nSTARTING EXPERIMENT: {run_name}\n")
+        if args.experiment and experiment["name"] != args.experiment:
+            continue
 
-            # Train the agent
-            train_ppo_agent(
-                experiment_name=run_name,
-                total_timesteps=experiment["total_timesteps"],
-                reward_wrapper=experiment["reward_wrapper"],
-                seed=seed
-            )
+        seeds = [args.seed] if args.seed is not None else experiment["seeds"]
+
+        # Over multiple seeds
+        for seed in seeds:
+            run_name = f"{experiment['name']}_seed{seed}"
+
+            # Skip training and just evaluate
+            if args.eval_only:
+                model_path_best = os.path.join("results", run_name, "best_model.zip")
+                model_path_final = os.path.join("results", run_name, "final_model.zip")
+
+                if not os.path.exists(model_path_best) and not os.path.exists(model_path_final):
+                    print(f"Skipping {run_name} — no trained model found.")
+                    continue
+
+                print(f"\nEVALUATING: {run_name}\n")
+
+            # Normal training and evaluation
+            else:
+                print(f"\nSTARTING EXPERIMENT: {run_name}\n")
+                # Train the agent
+                train_ppo_agent(
+                    experiment_name=run_name,
+                    total_timesteps=experiment["total_timesteps"],
+                    reward_wrapper=experiment["reward_wrapper"],
+                    seed=seed
+                )
 
             # Evaluate the agent
             mean, std, telemetry = evaluate_agent(
@@ -41,17 +76,17 @@ def main():
           f"{'Mean Brake':>12}")
 
     for run_name, metrics in results.items():
-        telemetry = metrics['telemetry']
+        tel = metrics['telemetry']
         print(f"{run_name:<30} "
               f"{metrics['mean_reward']:>12.2f} "
               f"{metrics['std_reward']:>8.2f} "
-              f"{telemetry['mean_speed']:>12.2f} "
-              f"{telemetry['max_speed']:>12.2f} "
-              f"{telemetry['mean_lateral_velocity']:>15.2f} "
-              f"{telemetry['off_track_percentage']:>12.2f} "
-              f"{telemetry['mean_steering_change']:>20.2f} "
-              f"{telemetry['mean_throttle']:>15.2f} "
-              f"{telemetry['mean_brake']:>12.2f}")
+              f"{tel.get('mean_speed', float('nan')):>12.2f} "
+              f"{tel.get('max_speed', float('nan')):>12.2f} "
+              f"{tel.get('mean_lateral_velocity', float('nan')):>15.2f} "
+              f"{tel.get('off_track_percentage', float('nan')):>12.2f} "
+              f"{tel.get('mean_steering_change', float('nan')):>20.2f} "
+              f"{tel.get('mean_throttle', float('nan')):>15.2f} "
+              f"{tel.get('mean_brake', float('nan')):>12.2f}")
 
 if __name__ == "__main__":
     main()
