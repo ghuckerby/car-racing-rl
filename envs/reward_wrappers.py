@@ -1,8 +1,12 @@
 import numpy as np
 import gymnasium as gym
 
+# Native Reward:
+# -0.1/step, +1000/N per new tile visited, -100 too far off track (with episode termination)
+
 # Speed:
-# - Does rewarding speed produce faster but less controlled driving?
+    # - Does rewarding speed produce faster but less controlled driving?
+    # - +0.05 * speed per step (+2.5/step, 25x native time penalty)
 class SpeedRewardWrapper(gym.Wrapper):
 
     # Speed weight for reward
@@ -21,7 +25,8 @@ class SpeedRewardWrapper(gym.Wrapper):
         return obs, reward, terminated, truncated, info
 
 # Safety:
-# - Does penalising off-track behaviour produce more conservative driving?
+    # - Does penalising off-track behaviour produce more conservative driving?
+    # - -0.5/step when off-track (5x native penalty per off-track step)
 class SafetyRewardWrapper(gym.Wrapper):
 
     # Off-track penalty for driving on grass
@@ -41,7 +46,8 @@ class SafetyRewardWrapper(gym.Wrapper):
         return obs, reward, terminated, truncated, info
 
 # Smoothness:
-# - Does rewarding smooth steering produce more stable driving?
+    # - Does rewarding smooth steering produce more stable driving?
+    # - Subtracts 1 x sum(action delta) per step (discourages large changes)
 class SmoothnessRewardWrapper(gym.Wrapper):
 
     # Smoothness penalty for large changes in steering
@@ -66,7 +72,8 @@ class SmoothnessRewardWrapper(gym.Wrapper):
         return self.env.reset(**kwargs)
 
 # Time:
-# - Does a time penalty produce urgency, and does urgency help or hinder performance?
+    # - Does a time penalty produce urgency, and does urgency help or hinder performance?
+    # - -0.1/step (doubles the native time penalty)
 class TimeRewardWrapper(gym.Wrapper):
 
     # Time penalty for each step to encourage faster completion
