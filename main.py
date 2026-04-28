@@ -7,7 +7,7 @@ from evaluation.evaluate import evaluate_agent
 def main():
 
     parser = argparse.ArgumentParser(description="Train and evaluate CarRacing-v3 reward wrappers")
-    parser.add_argument("--experiment", type=str, default=None, help="Name of experiment to run. Runs all if not specified.")
+    parser.add_argument("--experiment", type=str, nargs="+", default=None, help="Name of experiment to run. Runs all if not specified.")
     parser.add_argument("--seed", type=int, default=None, help="Seed to run for the experiment.")
     parser.add_argument("--list", action="store_true", help="List all available experiments.")
     parser.add_argument("--eval-only", action="store_true",
@@ -23,7 +23,7 @@ def main():
 
     # Iterate through each experiment configuration (Reward Wrapper)
     for experiment in EXPERIMENTS:
-        if args.experiment and experiment["name"] != args.experiment:
+        if args.experiment and experiment["name"] not in args.experiment:
             continue
 
         seeds = [args.seed] if args.seed is not None else experiment["seeds"]

@@ -51,7 +51,7 @@ class SafetyRewardWrapper(gym.Wrapper):
 class SmoothnessRewardWrapper(gym.Wrapper):
 
     # Smoothness penalty for large changes in steering
-    def __init__(self, env, smooth_weight=1.0):
+    def __init__(self, env, smooth_weight=0.5):
         super().__init__(env)
         self.smooth_weight = smooth_weight
         self.prev_action = None
@@ -61,8 +61,8 @@ class SmoothnessRewardWrapper(gym.Wrapper):
 
         # Smoothness = delta in angle of steering from previous action
         if self.prev_action is not None:
-            action_delta = np.sum(np.abs(np.array(action) - np.array(self.prev_action)))
-            reward -= self.smooth_weight * action_delta
+            steering_delta = abs(float(action[0]) - float(self.prev_action[0]))
+            reward -= self.smooth_weight * steering_delta
 
         self.prev_action = action
         return obs, reward, terminated, truncated, info
