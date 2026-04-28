@@ -85,3 +85,48 @@ class TimeRewardWrapper(gym.Wrapper):
         obs, reward, terminated, truncated, info = self.env.step(action)
         reward -= self.time_penalty
         return obs, reward, terminated, truncated, info
+    
+# Composite (for meta-learning extension):
+    # - Combines all reward signals with configurable weights for a meta-learning search
+    # - Set any weight to 0.0 to disable the component
+class CompositeRewardWrapper(gym.Wrapper):
+
+    def __init__(self, env, speed_weight=0.0, off_track_penalty=0.0, smooth_weight=0.0, time_penalty=0.0):
+        super().__init__(env)
+        self.speed_weight = speed_weight
+        self.off_track_penalty = off_track_penalty
+        self.smooth_weight = smooth_weight
+        self.time_penalty = time_penalty
+        self.prev_action = None
+    
+    def step(self, action):
+        obs, reward, terminated, truncated, info = self.env.step(action)
+        car = self.env.unwrapped.car
+
+        # Add each component per step (all match the above wrappers)
+        if car is not None:
+            
+            # Speed component
+            speed = np.linalg.norm(car.hull.linearVelocity)
+            reward += self.speed_weight * speed
+
+            # Safety component
+            on_grass = len(car.hull.contacts) == 0
+            if on_grass:
+                reward += self.off_track_penalty
+
+        # Smoothness component
+        if self.prev_action is not None:
+            steering_delta = abs(float(action[0]) - float(self.prev_action[0]))
+            reward -= self.smooth_weight * steering_delta
+
+        self.prev_action = action
+
+        # Time component
+        reward -= self.time_penalty
+
+        return obs, reward, terminated, truncated, info
+    
+    def reset(self, **kwargs):
+        self.prev_action = None
+        return self.env.reset(**kwargs)
