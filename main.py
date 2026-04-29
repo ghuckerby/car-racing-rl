@@ -3,20 +3,31 @@ import os
 from experiments.configs import EXPERIMENTS
 from agents.train_ppo import train_ppo_agent
 from evaluation.evaluate import evaluate_agent
+from experiments.reward_search import run_reward_search
+
+# Run Manually: python -m gymnasium.envs.box2d.car_racing --continuous False
 
 def main():
 
     parser = argparse.ArgumentParser(description="Train and evaluate CarRacing-v3 reward wrappers")
+
     parser.add_argument("--experiment", type=str, nargs="+", default=None, help="Name of experiment to run. Runs all if not specified.")
     parser.add_argument("--seed", type=int, default=None, help="Seed to run for the experiment.")
     parser.add_argument("--list", action="store_true", help="List all available experiments.")
-    parser.add_argument("--eval-only", action="store_true",
-                        help="Skip training and only evaluate already-trained models.")
+    parser.add_argument("--eval-only", action="store_true", help="Skip training and only evaluate already-trained models.")
+    parser.add_argument("--meta-learn", action="store_true", help="Run Optuna reward weight search before experiments.")
+
     args = parser.parse_args()
 
+    # Just list available experiments and exit
     if args.list:
         for exp in EXPERIMENTS:
             print(f"{exp['name']} (seeds :{exp['seeds']})")
+        return
+    
+    # Run meta-learning reward search, returns to skip normal experiments
+    if args.meta_learn:
+        run_reward_search()
         return
 
     results = {}

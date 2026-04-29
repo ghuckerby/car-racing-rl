@@ -51,7 +51,7 @@ class SafetyRewardWrapper(gym.Wrapper):
 class SmoothnessRewardWrapper(gym.Wrapper):
 
     # Smoothness penalty for large changes in steering
-    def __init__(self, env, smooth_weight=0.5):
+    def __init__(self, env, smooth_weight=0.1):
         super().__init__(env)
         self.smooth_weight = smooth_weight
         self.prev_action = None
