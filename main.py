@@ -15,7 +15,7 @@ def main():
     parser.add_argument("--seed", type=int, default=None, help="Seed to run for the experiment.")
     parser.add_argument("--list", action="store_true", help="List all available experiments.")
     parser.add_argument("--eval-only", action="store_true", help="Skip training and only evaluate already-trained models.")
-    parser.add_argument("--meta-learn", action="store_true", help="Run Optuna reward weight search before experiments.")
+    parser.add_argument("--meta-learn", action="store_true", help="Run Optuna reward weight search.")
 
     args = parser.parse_args()
 
