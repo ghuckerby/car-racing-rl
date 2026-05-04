@@ -108,5 +108,115 @@
         "mean_steering_change": 0.24259536823630332,
         "mean_throttle": 0.48017536572366953,
         "mean_brake": 0.0
+    },
+    {
+        "episode": 10,
+        "steps": 397,
+        "mean_speed": 55.62496454717605,
+        "max_speed": 80.41407421689019,
+        "mean_lateral_velocity": 41.937932063391436,
+        "off_track_percentage": 0.24937027707808565,
+        "mean_steering_change": 0.355977327269631,
+        "mean_throttle": 0.5390391377380273,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 11,
+        "steps": 1000,
+        "mean_speed": 44.868346579978464,
+        "max_speed": 80.58597959713816,
+        "mean_lateral_velocity": 29.879810821484774,
+        "off_track_percentage": 0.407,
+        "mean_steering_change": 0.3025671640485525,
+        "mean_throttle": 0.43200761695206163,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 12,
+        "steps": 205,
+        "mean_speed": 60.721736857981675,
+        "max_speed": 80.35841644986742,
+        "mean_lateral_velocity": 55.1995369853043,
+        "off_track_percentage": 0.3024390243902439,
+        "mean_steering_change": 0.37239565238720035,
+        "mean_throttle": 0.5293263033759303,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 13,
+        "steps": 1000,
+        "mean_speed": 36.195076961053374,
+        "max_speed": 58.172666182494865,
+        "mean_lateral_velocity": 20.85673584951088,
+        "off_track_percentage": 0.679,
+        "mean_steering_change": 0.3479994901418686,
+        "mean_throttle": 0.48408161555975676,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 14,
+        "steps": 1000,
+        "mean_speed": 45.58435785179613,
+        "max_speed": 79.92192310947408,
+        "mean_lateral_velocity": 27.256526149127634,
+        "off_track_percentage": 0.501,
+        "mean_steering_change": 0.28431772757321594,
+        "mean_throttle": 0.46904229167103767,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 15,
+        "steps": 1000,
+        "mean_speed": 72.93749933760884,
+        "max_speed": 79.36302450561237,
+        "mean_lateral_velocity": 55.569044904388484,
+        "off_track_percentage": 0.029,
+        "mean_steering_change": 0.42805102268606426,
+        "mean_throttle": 0.26726141142100096,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 16,
+        "steps": 1000,
+        "mean_speed": 31.259423653065994,
+        "max_speed": 68.39454643938218,
+        "mean_lateral_velocity": 20.556405774757266,
+        "off_track_percentage": 0.472,
+        "mean_steering_change": 0.24021044696867466,
+        "mean_throttle": 0.5187354989126325,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 17,
+        "steps": 1000,
+        "mean_speed": 73.924956455513,
+        "max_speed": 80.35357354235119,
+        "mean_lateral_velocity": 52.66765437328815,
+        "off_track_percentage": 0.0,
+        "mean_steering_change": 0.43583352538943293,
+        "mean_throttle": 0.23632255112379788,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 18,
+        "steps": 1000,
+        "mean_speed": 42.16710096626966,
+        "max_speed": 79.5942553865491,
+        "mean_lateral_velocity": 31.070589640428313,
+        "off_track_percentage": 0.128,
+        "mean_steering_change": 0.2964069487527013,
+        "mean_throttle": 0.5646007495149971,
+        "mean_brake": 0.0
+    },
+    {
+        "episode": 19,
+        "steps": 1000,
+        "mean_speed": 29.74229383216288,
+        "max_speed": 60.86282672960787,
+        "mean_lateral_velocity": 17.71074776123464,
+        "off_track_percentage": 0.351,
+        "mean_steering_change": 0.2670988844409585,
+        "mean_throttle": 0.5543157431930303,
+        "mean_brake": 0.0
     }
 ]

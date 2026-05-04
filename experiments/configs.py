@@ -60,13 +60,13 @@ EXPERIMENTS = [
         "seeds": [0],
         "total_timesteps": 2_000_000
     },
-    # {
-    #     "name": "time_search_reward",
-    #     "reward_wrapper": functools.partial(
-    #         CompositeRewardWrapper,
-    #         time_penalty=X
-    #     ),
-    #     "seeds": [0],
-    #     "total_timesteps": 2_000_000
-    # }
+    {
+        "name": "time_search_reward",
+        "reward_wrapper": functools.partial(
+            CompositeRewardWrapper,
+            time_penalty=0.4116426000513264
+        ),
+        "seeds": [0],
+        "total_timesteps": 2_000_000
+    }
 ]

@@ -6,7 +6,7 @@ from stable_baselines3.common.atari_wrappers import WarpFrame
 from envs.telemetry_collection import TelemetryCollector
 import os
 
-def make_env(reward_wrapper = None, telemetry = True):
+def make_env(reward_wrapper = None, telemetry = True, env_seed=None):
     telemetry_instance = []
 
     def wrapper_class(env):
@@ -24,7 +24,8 @@ def make_env(reward_wrapper = None, telemetry = True):
         
         return env
 
-    env = make_vec_env("CarRacing-v3", n_envs=1, wrapper_class=wrapper_class)
+    # Seeding for evaluation only
+    env = make_vec_env("CarRacing-v3", n_envs=1, wrapper_class=wrapper_class, seed=env_seed)
     env = VecFrameStack(env, n_stack=4)
     env = VecTransposeImage(env)
     tel_ref = telemetry_instance[0] if telemetry_instance else None

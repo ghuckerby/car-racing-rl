@@ -68,6 +68,7 @@ def main():
             # Evaluate the agent
             mean, std, telemetry = evaluate_agent(
                 experiment_name=run_name,
+                n_eval_episodes=20,
                 reward_wrapper=experiment["reward_wrapper"]
             )
 
@@ -84,7 +85,10 @@ def main():
           f"{'Off Track %':>12} "
           f"{'Mean Steering Chg':>20} "
           f"{'Mean Throttle':>15} "
-          f"{'Mean Brake':>12}")
+          f"{'Mean Brake':>12} "
+          f"{'Completion %':>14} "
+          f"{'Completion Rate':>16} "
+          f"{'Mean Completion Steps':>22}")
 
     for run_name, metrics in results.items():
         tel = metrics['telemetry']
@@ -97,7 +101,10 @@ def main():
               f"{tel.get('off_track_percentage', float('nan')):>12.2f} "
               f"{tel.get('mean_steering_change', float('nan')):>20.2f} "
               f"{tel.get('mean_throttle', float('nan')):>15.2f} "
-              f"{tel.get('mean_brake', float('nan')):>12.2f}")
+              f"{tel.get('mean_brake', float('nan')):>12.2f} "
+              f"{tel.get('track_completion_percentage', float('nan')):>14.2%} "
+              f"{tel.get('completion_rate', float('nan')):>16.2%} "
+              f"{str(round(tel['mean_completion_steps'])) if tel.get('mean_completion_steps') is not None else 'N/A':>22}")
 
 if __name__ == "__main__":
     main()

@@ -22,6 +22,7 @@ class TelemetryCollector(gym.Wrapper):
         self.step_action_deltas = []
         self.prev_action = None
         self.step_count = 0
+        self.completion_steps = None
 
     # Collect telemetry at each step and save episode summary at the end of each episode
     def step(self, action):
@@ -60,11 +61,26 @@ class TelemetryCollector(gym.Wrapper):
         self.step_action_deltas.append(delta)
         self.step_count += 1
 
+        # Check track completion
+        unwrapped = self.env.unwrapped
+        if unwrapped.track is not None and unwrapped.tile_visited_count >= len(unwrapped.track):
+            if self.completion_steps is None:
+                self.completion_steps = self.step_count
+
         # If episode ended, save summary of episode telemetry
         if terminated or truncated:
+            unwrapped = self.env.unwrapped
+            total_tiles = len(unwrapped.track) if unwrapped.track is not None else 0
+            visited_tiles = unwrapped.tile_visited_count if unwrapped.track is not None else 0
+            track_completed = self.completion_steps is not None
+            completion_pct = float(visited_tiles / total_tiles) if total_tiles > 0 else 0.0
+
             self.episode_logs.append({
                 "episode": len(self.episode_logs),
                 "steps": self.step_count,
+                "track_completed": track_completed,
+                "completion_steps": self.completion_steps,
+                "track_completion_percentage": completion_pct,
                 "mean_speed": float(np.mean(self.step_speeds)),
                 "max_speed": float(np.max(self.step_speeds)),
                 "mean_lateral_velocity": float(np.mean(self.step_lateral_velocitys)),

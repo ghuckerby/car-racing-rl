@@ -23,7 +23,8 @@ def evaluate_agent(experiment_name, reward_wrapper=None, n_eval_episodes=10, rec
     else:
         raise FileNotFoundError(f"No model found for {experiment_name} in {log_dir}")
 
-    env, tel = make_env(reward_wrapper, telemetry=True)
+    # Seeding so the evaluation sequence is the same across experiments
+    env, tel = make_env(reward_wrapper, telemetry=True, env_seed=0)
     model = PPO.load(model_path, env=env)
     
     # Reward statistics
@@ -36,10 +37,13 @@ def evaluate_agent(experiment_name, reward_wrapper=None, n_eval_episodes=10, rec
     episodes = tel.episode_logs
     summary = {}
     if episodes:
-        data = ["mean_speed", "max_speed", "mean_lateral_velocity",
-                "off_track_percentage", "mean_steering_change",
-                "mean_throttle", "mean_brake"]
-        summary = {value: float(np.mean([ep[value] for ep in episodes])) for value in data}
+        scalar_metrics = ["mean_speed", "max_speed", "mean_lateral_velocity",
+                          "off_track_percentage", "mean_steering_change",
+                          "mean_throttle", "mean_brake", "track_completion_percentage"]
+        summary = {value: float(np.mean([ep[value] for ep in episodes])) for value in scalar_metrics}
+        summary["completion_rate"] = float(np.mean([ep["track_completed"] for ep in episodes]))
+        completed_eps = [ep["completion_steps"] for ep in episodes if ep["completion_steps"] is not None]
+        summary["mean_completion_steps"] = float(np.mean(completed_eps)) if completed_eps else None
 
     # Record Video
     if record_video:
