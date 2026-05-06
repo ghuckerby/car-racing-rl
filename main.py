@@ -76,7 +76,7 @@ def main():
 
     # Print summary of results
     print("\nEXPERIMENT RESULTS SUMMARY:\n")
-    print(f"{'Experiment':<34} "
+    print(f"{'Experiment':<33} "
           f"{'Mean Reward':>12} "
           f"{'Std':>8} "
           f"{'Mean Speed':>12} "
@@ -92,7 +92,7 @@ def main():
 
     for run_name, metrics in results.items():
         tel = metrics['telemetry']
-        print(f"{run_name:<30} "
+        print(f"{run_name:<33} "
               f"{metrics['mean_reward']:>12.2f} "
               f"{metrics['std_reward']:>8.2f} "
               f"{tel.get('mean_speed', float('nan')):>12.2f} "
