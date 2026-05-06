@@ -2,6 +2,9 @@
     {
         "episode": 0,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.9780564263322884,
         "mean_speed": 66.02963374379274,
         "max_speed": 73.5619205012034,
         "mean_lateral_velocity": 44.3175351940617,
@@ -13,6 +16,9 @@
     {
         "episode": 1,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.9928825622775801,
         "mean_speed": 66.49338566047108,
         "max_speed": 73.03006410102888,
         "mean_lateral_velocity": 48.97793110999465,
@@ -24,6 +30,9 @@
     {
         "episode": 2,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.4024767801857585,
         "mean_speed": 34.61672918935049,
         "max_speed": 73.84520104596493,
         "mean_lateral_velocity": 25.891733879308216,
@@ -35,6 +44,9 @@
     {
         "episode": 3,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.99,
         "mean_speed": 66.4038087446295,
         "max_speed": 72.78984936631986,
         "mean_lateral_velocity": 45.3436670457148,
@@ -46,6 +58,9 @@
     {
         "episode": 4,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.5732899022801303,
         "mean_speed": 40.00570003748959,
         "max_speed": 72.88247643446299,
         "mean_lateral_velocity": 31.428335841276215,
@@ -57,6 +72,9 @@
     {
         "episode": 5,
         "steps": 677,
+        "track_completed": true,
+        "completion_steps": 677,
+        "track_completion_percentage": 1.0,
         "mean_speed": 65.56731845380017,
         "max_speed": 71.52216645272954,
         "mean_lateral_velocity": 49.23232272870569,
@@ -68,6 +86,9 @@
     {
         "episode": 6,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.17192982456140352,
         "mean_speed": 20.206787682615964,
         "max_speed": 70.61803659236635,
         "mean_lateral_velocity": 14.514064366813749,
@@ -79,6 +100,9 @@
     {
         "episode": 7,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.9808306709265175,
         "mean_speed": 66.41054129973861,
         "max_speed": 74.39127121443804,
         "mean_lateral_velocity": 44.41480382125173,
@@ -90,6 +114,9 @@
     {
         "episode": 8,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.9925093632958801,
         "mean_speed": 66.04180303969163,
         "max_speed": 72.88092218337904,
         "mean_lateral_velocity": 48.02230011525936,
@@ -101,6 +128,9 @@
     {
         "episode": 9,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.974910394265233,
         "mean_speed": 64.59185936360747,
         "max_speed": 72.00658769567282,
         "mean_lateral_velocity": 46.41941880851984,
@@ -112,6 +142,9 @@
     {
         "episode": 10,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.96,
         "mean_speed": 65.23970117179759,
         "max_speed": 72.63293823630605,
         "mean_lateral_velocity": 48.44697075261921,
@@ -123,6 +156,9 @@
     {
         "episode": 11,
         "steps": 807,
+        "track_completed": true,
+        "completion_steps": 807,
+        "track_completion_percentage": 1.0,
         "mean_speed": 66.29395578319716,
         "max_speed": 72.97799145403945,
         "mean_lateral_velocity": 45.98219188641124,
@@ -134,6 +170,9 @@
     {
         "episode": 12,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.1724137931034483,
         "mean_speed": 22.583324300586252,
         "max_speed": 69.25777544335013,
         "mean_lateral_velocity": 16.075573734860868,
@@ -145,6 +184,9 @@
     {
         "episode": 13,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.6385135135135135,
         "mean_speed": 39.94383681659752,
         "max_speed": 75.0875324742823,
         "mean_lateral_velocity": 23.61258116070833,
@@ -156,6 +198,9 @@
     {
         "episode": 14,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.6065573770491803,
         "mean_speed": 38.18772396876624,
         "max_speed": 73.13841389169956,
         "mean_lateral_velocity": 25.903177258193494,
@@ -167,6 +212,9 @@
     {
         "episode": 15,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.9924528301886792,
         "mean_speed": 65.98129680787326,
         "max_speed": 73.01146012289391,
         "mean_lateral_velocity": 52.31109568816424,
@@ -178,6 +226,9 @@
     {
         "episode": 16,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.6761006289308176,
         "mean_speed": 43.74636232601217,
         "max_speed": 72.05095220277086,
         "mean_lateral_velocity": 27.33701349801384,
@@ -189,6 +240,9 @@
     {
         "episode": 17,
         "steps": 705,
+        "track_completed": true,
+        "completion_steps": 705,
+        "track_completion_percentage": 1.0,
         "mean_speed": 65.45267439056157,
         "max_speed": 72.14379950560665,
         "mean_lateral_velocity": 47.587775160868965,
@@ -200,6 +254,9 @@
     {
         "episode": 18,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.15570934256055363,
         "mean_speed": 21.25865801690788,
         "max_speed": 73.40191725224224,
         "mean_lateral_velocity": 15.048594242848456,
@@ -211,6 +268,9 @@
     {
         "episode": 19,
         "steps": 1000,
+        "track_completed": false,
+        "completion_steps": null,
+        "track_completion_percentage": 0.993127147766323,
         "mean_speed": 65.99919503158596,
         "max_speed": 76.07598417455691,
         "mean_lateral_velocity": 46.095300410392696,

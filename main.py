@@ -76,7 +76,7 @@ def main():
 
     # Print summary of results
     print("\nEXPERIMENT RESULTS SUMMARY:\n")
-    print(f"{'Experiment':<30} "
+    print(f"{'Experiment':<34} "
           f"{'Mean Reward':>12} "
           f"{'Std':>8} "
           f"{'Mean Speed':>12} "

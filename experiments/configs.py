@@ -68,5 +68,15 @@ EXPERIMENTS = [
         ),
         "seeds": [0],
         "total_timesteps": 2_000_000
+    },
+    {
+        "name": "time_safety_search_reward",
+        "reward_wrapper": functools.partial(
+            CompositeRewardWrapper,
+            time_penalty=0.19059897170635648,
+            off_track_penalty=-0.506287406327415
+        ),
+        "seeds": [0],
+        "total_timesteps": 2_000_000
     }
 ]
