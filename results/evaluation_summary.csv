@@ -1,0 +1,10 @@
+Experiment,Mean Reward,Std,Mean Speed,Max Speed,Mean Lat Vel,Off Track %,Mean Steering Chg,Mean Throttle,Mean Brake,Completion %,Completion Rate,Mean Completion Steps
+baseline_seed0,741.19,337.70,56.50,72.25,40.17,0.16,0.58,0.27,0.00,82.65%,60.00%,755
+speed_reward_seed0,490.82,237.42,68.06,76.96,47.20,0.37,0.50,0.17,0.00,59.43%,0.00%,N/A
+safety_reward_seed0,666.64,310.60,52.55,72.87,37.35,0.13,0.50,0.39,0.00,76.26%,15.00%,730
+smoothness_reward_seed0,208.75,302.05,27.64,69.53,18.22,0.56,0.25,0.70,0.05,30.88%,0.00%,N/A
+extreme_smoothness_reward_seed0,-82.92,6.07,2.76,3.54,1.72,0.32,0.00,0.00,0.00,1.71%,0.00%,N/A
+time_reward_seed0,887.88,21.84,60.52,66.25,42.85,0.00,0.55,0.14,0.00,98.33%,20.00%,772
+composite_reward_seed0,215.07,272.85,44.51,74.63,30.52,0.40,0.31,0.48,0.00,31.97%,0.00%,N/A
+time_search_reward_seed0,609.26,294.83,55.43,83.60,39.06,0.28,0.33,0.39,0.00,70.74%,5.00%,635
+time_safety_search_reward_seed0,855.78,67.71,61.70,70.68,44.36,0.01,0.38,0.15,0.00,95.45%,5.00%,738
