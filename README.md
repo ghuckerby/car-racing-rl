@@ -28,7 +28,15 @@ All experiments are run via `main.py` from the project root.
 python main.py --list
 ```
 
+**Evaluate only (skip training, requires a trained model in `results/`):**
+
+```bash
+python main.py --experiment baseline --eval-only
+```
+
 **Train and evaluate a specific experiment:**
+
+> **Note:** Each experiment trains for 2 million timesteps and takes approximately 6 hours on a single machine. Pre-trained models and results are included in the `results/` folder.
 
 ```bash
 python main.py --experiment baseline
@@ -42,15 +50,7 @@ python main.py --experiment speed_reward --seed 0
 python main.py
 ```
 
-**Evaluate only (skip training, requires a trained model in `results/`):**
-
-```bash
-python main.py --experiment baseline --eval-only
-```
-
 Available experiment names: `baseline`, `speed_reward`, `safety_reward`, `smoothness_reward`, `extreme_smoothness_reward`, `time_reward`, `composite_reward`.
-
-> **Note:** Each experiment trains for 2 million timesteps and takes approximately 6 hours on a single CPU/GPU machine. Pre-trained models and results are included in the `results/` folder.
 
 ---
 
