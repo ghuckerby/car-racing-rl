@@ -5,7 +5,7 @@ from agents.train_ppo import train_ppo_agent
 from evaluation.evaluate import evaluate_agent
 from experiments.reward_search import run_reward_search
 
-# Run Manually: python -m gymnasium.envs.box2d.car_racing --continuous False
+# Run Car Racing Manually: python -m gymnasium.envs.box2d.car_racing --continuous False
 
 def main():
 
@@ -25,7 +25,7 @@ def main():
             print(f"{exp['name']} (seeds :{exp['seeds']})")
         return
     
-    # Run meta-learning reward search, returns to skip normal experiments
+    # Run reward-learning search experiment, returns to skip normal experiments
     if args.meta_learn:
         run_reward_search()
         return
@@ -49,7 +49,7 @@ def main():
                 model_path_final = os.path.join("results", run_name, "final_model.zip")
 
                 if not os.path.exists(model_path_best) and not os.path.exists(model_path_final):
-                    print(f"Skipping {run_name} — no trained model found.")
+                    print(f"Skipping {run_name}, no trained model found.")
                     continue
 
                 print(f"\nEVALUATING: {run_name}\n")
@@ -65,7 +65,7 @@ def main():
                     seed=seed
                 )
 
-            # Evaluate the agent
+            # Evaluate the agent over 20 episodes
             mean, std, telemetry = evaluate_agent(
                 experiment_name=run_name,
                 n_eval_episodes=20,

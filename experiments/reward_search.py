@@ -10,6 +10,8 @@ from envs.reward_wrappers import CompositeRewardWrapper
 # Reward search using Optuna to find the best combination of reward weights for speed, safety, smoothness, and time
 def objective(trial):
 
+    # (First two runs commented out)
+
     # -- Full Composite Reward Search --
 
     # Weight ranges for all reward components

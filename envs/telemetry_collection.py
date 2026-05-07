@@ -4,7 +4,6 @@ import json
 import os
 
 class TelemetryCollector(gym.Wrapper):
-    """Record telemetry data during runs and save to JSON"""
 
     def __init__(self, env):
         super().__init__(env)

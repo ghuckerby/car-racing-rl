@@ -6,6 +6,7 @@ from stable_baselines3.common.atari_wrappers import WarpFrame
 from envs.telemetry_collection import TelemetryCollector
 import os
 
+# Helper for making environments
 def make_env(reward_wrapper = None, telemetry = True, env_seed=None):
     telemetry_instance = []
 
@@ -24,13 +25,16 @@ def make_env(reward_wrapper = None, telemetry = True, env_seed=None):
         
         return env
 
-    # Seeding for evaluation only
+    # Create environment with the specified wrapper
     env = make_vec_env("CarRacing-v3", n_envs=1, wrapper_class=wrapper_class, seed=env_seed)
+
+    # Stack frames and transpose for compatibility with CNN policy
     env = VecFrameStack(env, n_stack=4)
     env = VecTransposeImage(env)
     tel_ref = telemetry_instance[0] if telemetry_instance else None
     return env, tel_ref
     
+# Training function used in the main script
 def train_ppo_agent(experiment_name, total_timesteps=2_000_000, reward_wrapper=None, seed=0):
 
     # Logging for results and checkpoints
@@ -46,13 +50,14 @@ def train_ppo_agent(experiment_name, total_timesteps=2_000_000, reward_wrapper=N
         env_eval,
         best_model_save_path=log_dir,
         log_path=log_dir,
-        eval_freq=100_000,
-        deterministic=True,
+        eval_freq=100_000, # Evaluate every 100k steps, save the best model based on mean reward
+        deterministic=True, # Deterministic for evaluation
         render=False,
         n_eval_episodes=5
     )
 
     # Model Training
+    # Default PPO parameters with small entropy coefficient to encourage exploration
     model = PPO(
         "CnnPolicy",
         env,
