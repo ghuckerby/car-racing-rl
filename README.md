@@ -2,6 +2,8 @@
 
 Investigating the Impact of Reward Function Design on PPO Agents in CarRacing-v3.
 
+Repository URL: https://github.com/ghuckerby/car-racing-rl
+
 ---
 
 ## Installation
@@ -50,7 +52,7 @@ python main.py --experiment speed_reward --seed 0
 python main.py
 ```
 
-Available experiment names: `baseline`, `speed_reward`, `safety_reward`, `smoothness_reward`, `extreme_smoothness_reward`, `time_reward`, `composite_reward`.
+Available experiment names: `baseline`, `speed_reward`, `safety_reward`, `smoothness_reward`, `time_reward`, `composite_reward`, `time_search_reward`, `time_safety_search_reward`.
 
 ---
 
